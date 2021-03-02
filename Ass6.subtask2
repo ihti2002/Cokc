@@ -1,0 +1,98 @@
+
+import sun.rmi.runtime.Log;
+
+public interface Logistic {
+    String planDelivery(String pointA, String pointB);
+    Transport createTransport();
+
+}
+
+
+import java.util.Scanner;
+
+public class main {
+
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter source's address: ");
+        String pointA = in.nextLine();
+        System.out.println("Enter recipient's address: ");
+        String pointB = in.nextLine();
+        System.out.println("Select a shipping method");
+        System.out.println("1-by track (if between source's and recipient's addresses exists roads");
+        System.out.println("2-by ship (if between source's and recipient's addresses don't exists roads");
+        int method = in.nextInt();
+
+
+        Logistic logistic = createLogisticsByShippingMethod(method);
+        Transport transport = logistic.createTransport();
+
+        planDelivery(pointA,pointB);
+        transport.deliver();
+
+    }
+
+
+    static Logistic createLogisticsByShippingMethod(int method) {
+        if (method == 1) {
+            return new RoadLogistics();
+        } else if (method == 2) {
+            return new SeaLogistic();
+        } else {
+            throw new RuntimeException(method + " is unknown method");
+        }
+    }
+    static Logistic planDelivery (String pointA, String pointB) {
+       System.out.println("FROM: "+pointA+"TO: "+pointB);
+       return null;
+    }
+}
+public class RoadLogistics implements Logistic {
+
+
+    @Override
+    public String planDelivery(String pointA, String pointB) {
+        return null;
+    }
+
+    @Override
+    public Truck createTransport() {
+        return new Truck();
+    }
+
+}
+
+public class SeaLogistic implements Logistic{
+
+
+    @Override
+    public String planDelivery(String pointA, String pointB){
+        return null;
+    }
+    @Override
+    public Ship createTransport() {
+
+        return new Ship();
+    }
+
+}
+
+public class Ship implements Transport {
+
+    @Override
+    public void deliver(){
+        System.out.println("Delivered by Ship");
+    }
+}
+public interface Transport {
+    void deliver();
+}
+
+public class Truck implements Transport {
+    @Override
+    public void deliver(){
+        System.out.println("Delivered by Truck");
+    }
+}
+
