@@ -1,0 +1,142 @@
+public interface Builder {
+    void reset();
+    void buildWalls();
+    void buildDoors();
+    void buildWindow();
+    void buildRoof();
+    void buildGarage();
+}
+
+public class Builder1 implements Builder{
+    public Product1 result;
+    @Override
+    public void reset(){ }
+    @Override
+    public void buildWalls() {
+    System.out.println("Build brick walls");
+    }
+
+    @Override
+    public void buildDoors() {
+        System.out.println("Build iron doors");
+    }
+
+    @Override
+    public void buildWindow() {
+        System.out.println("Build small window");
+    }
+
+    @Override
+    public void buildRoof() {
+        System.out.println("Build slate roof");
+    }
+
+    @Override
+    public void buildGarage() {
+        System.out.println("Build 2 seater garage");
+    }
+
+    Product1 getResult(){
+        return this.result;
+    }
+
+
+}
+
+public class Builder2 implements Builder{
+    public Product2 result;
+    @Override
+    public void reset(){
+        result =new Product2();
+    }
+    @Override
+    public void buildWalls() {
+        System.out.println("Without walls");
+    }
+
+    @Override
+    public void buildDoors() {
+        System.out.println("Build double iron walls");
+    }
+
+    @Override
+    public void buildWindow() {
+        System.out.println("Build panorama window");
+    }
+
+    @Override
+    public void buildRoof() {
+        System.out.println("Build open roof");
+    }
+
+    @Override
+    public void buildGarage() {
+        System.out.println("Build 1 seated garage");
+    }
+
+    Product2 getResult(){
+        return this.result;
+    }
+}
+
+public class Client {
+    public static void main(String[] args) {
+        Builder b = new Builder1();
+        Director d = new Director(b);
+        d.changeBuilder(new Builder1());
+        String type="not simple";
+        Product1 p = d.make(type);
+        String type1="simple";
+        Builder a = new Builder1();
+        Director z = new Director(a);
+        Product1 p1 = z.make(type1);
+
+
+
+    }
+}
+public class Director {
+    public Builder builder;
+    public Director (Builder builder){
+    }
+    public void changeBuilder(Builder builder){
+    this.builder=builder;
+    }
+    public Product1 make(String type){
+        builder.reset();
+        if(type=="simple"){
+            builder.buildDoors();
+            builder.buildWalls();
+            builder.buildRoof();
+            builder.buildWindow();
+        }
+        else {
+            builder.buildDoors();
+            builder.buildWalls();
+            builder.buildRoof();
+            builder.buildWindow();
+            builder.buildGarage();
+        }
+
+        return null;
+    }
+
+
+}
+
+public class Product1 extends Builder1{
+
+
+
+    @Override
+    Product1 getResult() {
+        return this.result;
+    }
+}
+
+public class Product2 extends Builder2{
+    @Override
+    Product2 getResult() {
+        return this.result;
+    }
+}
