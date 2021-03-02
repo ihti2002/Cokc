@@ -1,0 +1,184 @@
+public interface Chair {
+    void hasLegs();
+    void sitOn();
+}
+
+import CoffeeTable.CoffeeTable;
+import Sofa.Sofa;
+
+public interface FurnitureFactory {
+    Chair createChair();
+    CoffeeTable createCoffeetable();
+    Sofa createSofa();
+}
+
+import CoffeeTable.CoffeeTable;
+import Sofa.Sofa;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter your order: ");
+        System.out.println("(1-full Victorian Set of furniture; 2-full Modern Set of Furniture)");
+
+        int method = in.nextInt();
+        createLogisticsByShippingMethod(method);
+    }
+
+    static void createLogisticsByShippingMethod(int method) {
+        if (method == 1) {
+            FurnitureFactory order = new ModernFurnitureFactory();
+            CoffeeTable newTable = new ModernTable();
+            Sofa newSofa = new VictorianSofa();
+            Chair newChair = new ModernChair();
+
+            System.out.println("Creating new order");
+            newTable.hasLegs();
+            newTable.putOn();
+            newChair.hasLegs();
+            newChair.sitOn();
+            newSofa.hasLegs();
+            newSofa.lieOn();
+        } else if (method == 2) {
+            FurnitureFactory order = new VictorianFurnitureFactory();
+            CoffeeTable newTable = new VictorianTable();
+            Sofa newSofa = new VictorianSofa();
+            Chair newChair = new VictorianChair();
+
+            System.out.println("Creating new order");
+            newTable.hasLegs();
+            newTable.putOn();
+            newChair.hasLegs();
+            newChair.sitOn();
+            newSofa.hasLegs();
+            newSofa.lieOn();
+        } else {
+            throw new RuntimeException(method + " is unknown number");
+        }
+
+    }
+
+
+}
+
+public class ModernChair implements Chair{
+    @Override
+    public void hasLegs() {
+        System.out.println("Modern Chair has legs");
+    }
+
+    @Override
+    public void sitOn() {
+        System.out.println("Sit on Modern Chair");
+    }
+}
+
+import CoffeeTable.CoffeeTable;
+import Sofa.Sofa;
+
+public class ModernFurnitureFactory implements FurnitureFactory{
+    @Override
+    public Chair createChair() {
+        return new ModernChair();
+    }
+
+    @Override
+    public CoffeeTable createCoffeetable() {
+        return new ModernTable();
+    }
+
+    @Override
+    public Sofa createSofa() {
+        return new ModernSofa();
+    }
+}
+
+import Sofa.Sofa;
+
+public class ModernSofa implements Sofa {
+    @Override
+    public void hasLegs() {
+        System.out.println("Modern Sofa Table has legs");
+    }
+
+    @Override
+    public void lieOn() {
+        System.out.println("Lie on Modern Sofa");
+    }
+}
+
+import CoffeeTable.CoffeeTable;
+
+public class ModernTable implements CoffeeTable {
+    @Override
+    public void hasLegs() {
+        System.out.println("Modern Coffee Table has legs");
+    }
+
+    @Override
+    public void putOn() {
+        System.out.println("Put on Modern Coffee Table");
+    }
+}
+public class VictorianChair implements Chair{
+
+    @Override
+    public void hasLegs() {
+        System.out.println("Victorian Chair has legs");
+    }
+
+    @Override
+    public void sitOn() {
+        System.out.println("Sit on Victorian Chair");
+    }
+}
+
+import CoffeeTable.CoffeeTable;
+import Sofa.Sofa;
+
+public class VictorianFurnitureFactory implements FurnitureFactory {
+    @Override
+    public Chair createChair() {
+        return new VictorianChair();
+    }
+
+    @Override
+    public CoffeeTable createCoffeetable() {
+        return new VictorianTable();
+    }
+
+    @Override
+    public Sofa createSofa() {
+        return new VictorianSofa();
+    }
+}
+
+import Sofa.Sofa;
+
+public class VictorianSofa implements Sofa {
+    @Override
+    public void hasLegs() {
+        System.out.println("Victorian Sofa Table has legs");
+    }
+
+    @Override
+    public void lieOn() {
+        System.out.println("Lie on Victorian Sofa");
+    }
+}
+import CoffeeTable.CoffeeTable;
+
+public class VictorianTable implements CoffeeTable {
+    @Override
+    public void hasLegs() {
+        System.out.println("Victorian Coffee Table has legs");
+    }
+
+    @Override
+    public void putOn() {
+        System.out.println("Put on Victorian Coffee Table");
+    }
+}
